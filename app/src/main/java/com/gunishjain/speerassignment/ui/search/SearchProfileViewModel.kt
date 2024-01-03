@@ -9,6 +9,8 @@ import com.gunishjain.speerassignment.utils.AppConstant.DEBOUNCE_TIMEOUT
 import com.gunishjain.speerassignment.utils.AppConstant.MIN_SEARCH_CHAR
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -33,6 +35,7 @@ class SearchProfileViewModel @Inject constructor(private val repository: GitHubR
         createSearchFlow()
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
     private fun createSearchFlow() {
         viewModelScope.launch {
             searchText.debounce(DEBOUNCE_TIMEOUT)
@@ -46,7 +49,7 @@ class SearchProfileViewModel @Inject constructor(private val repository: GitHubR
                 }.distinctUntilChanged()
                 .flatMapLatest {
                     _uiState.value = UiState.Loading
-                    return@flatMapLatest repository.getSearchResult(it)
+                    return@flatMapLatest repository.getSearchResult(it, "login", "user")
                         .catch { e ->
                             _uiState.value = UiState.Error(e.toString())
                         }

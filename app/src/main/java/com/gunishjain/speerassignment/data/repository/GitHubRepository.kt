@@ -17,9 +17,9 @@ class GitHubRepository @Inject constructor(private val networkService: NetworkSe
         }
     }
 
-    fun getSearchResult(query: String): Flow<List<User>> {
+    fun getSearchResult(query: String,inside: String,type:String): Flow<List<User>> {
         return flow {
-            emit(networkService.getSearchResult(query, "in", "user"))
+            emit(networkService.getSearchResult(query, inside, type))
         }.map {
             it.users
         }

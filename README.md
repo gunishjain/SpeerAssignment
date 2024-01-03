@@ -16,4 +16,4 @@ Submission for Speer Android Assessment.
 - Pull to Refresh
 
 
-![](https://github.com/gunishjain/SpeerAssignment/blob/main/assets/speer.gif) 
+![](https://github.com/gunishjain/SpeerAssignment/blob/main/assets/part1.gif) | ![](https://github.com/gunishjain/SpeerAssignment/blob/main/assets/part2.gif) 

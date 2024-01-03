@@ -25,5 +25,17 @@ class GitHubRepository @Inject constructor(private val networkService: NetworkSe
         }
     }
 
+    fun getFollowersList(username: String) : Flow<List<User>> {
+        return flow {
+            emit(networkService.getFollowersList(username))
+        }
+    }
+
+    fun getFollowingList(username: String) : Flow<List<User>> {
+        return flow {
+            emit(networkService.getFollowingList(username))
+        }
+    }
+
 
 }

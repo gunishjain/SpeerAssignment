@@ -1,5 +1,6 @@
 package com.gunishjain.speerassignment.ui.userdetail
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -19,16 +20,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.gunishjain.speerassignment.data.models.UserDetail
+import com.gunishjain.speerassignment.navigation.Screen
 import com.gunishjain.speerassignment.ui.base.ShowProgressBar
 import com.gunishjain.speerassignment.ui.base.ShowToast
 import com.gunishjain.speerassignment.ui.base.UiState
 
 @Composable
 fun UserDetailRoute(
+    navController: NavController,
     username: String,
     viewModel: UserDetailViewModel = hiltViewModel()
+
 ) {
 
     LaunchedEffect(Unit, block = {
@@ -39,7 +44,7 @@ fun UserDetailRoute(
 
     Surface {
         Column(modifier = Modifier.padding(4.dp)) {
-            CoinDetailCard(user.value)
+            CoinDetailCard(user.value, navController)
         }
     }
 
@@ -47,11 +52,14 @@ fun UserDetailRoute(
 }
 
 @Composable
-fun CoinDetailCard(uiState: UiState<UserDetail>) {
+fun CoinDetailCard(
+    uiState: UiState<UserDetail>,
+    navController: NavController
+) {
 
     when (uiState) {
         is UiState.Success -> {
-            UserDetailItem(uiState.data)
+            UserDetailItem(uiState.data, navController)
         }
 
         is UiState.Loading -> {
@@ -67,7 +75,10 @@ fun CoinDetailCard(uiState: UiState<UserDetail>) {
 }
 
 @Composable
-fun UserDetailItem(user: UserDetail) {
+fun UserDetailItem(
+    user: UserDetail,
+    navController: NavController
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -85,8 +96,8 @@ fun UserDetailItem(user: UserDetail) {
         NameText(user.name)
         DetailText(user.username)
         DetailText(user.bio)
-        DetailText("Followers: ${user.followers}")
-        DetailText("Following: ${user.following}")
+        FollowerTextClickable(user, navController)
+        FollowingTextClickable(user, navController)
     }
 }
 
@@ -117,4 +128,36 @@ fun DetailText(detail: String?) {
             modifier = Modifier.padding(4.dp)
         )
     }
+}
+
+@Composable
+fun FollowerTextClickable(user: UserDetail, navController: NavController) {
+    Text(
+        text = "${user.followers} Followers",
+        fontSize = 18.sp,
+        style = MaterialTheme.typography.titleSmall,
+        color = Color.Black,
+        maxLines = 2,
+        modifier = Modifier
+            .padding(4.dp)
+            .clickable {
+                navController.navigate(route = Screen.UserList.passData(followerUsername = user.username))
+            }
+    )
+}
+
+@Composable
+fun FollowingTextClickable(user: UserDetail, navController: NavController) {
+    Text(
+        text = "${user.following} Following",
+        fontSize = 18.sp,
+        style = MaterialTheme.typography.titleSmall,
+        color = Color.Black,
+        maxLines = 2,
+        modifier = Modifier
+            .padding(4.dp)
+            .clickable {
+                navController.navigate(route = Screen.UserList.passData(followingUsername = user.username))
+            }
+    )
 }

@@ -1,5 +1,6 @@
 package com.gunishjain.speerassignment.data.api
 
+import com.gunishjain.speerassignment.data.models.User
 import com.gunishjain.speerassignment.data.models.UserDetail
 import com.gunishjain.speerassignment.data.models.UserListResponse
 import retrofit2.http.GET
@@ -19,9 +20,9 @@ interface NetworkService {
     ): UserListResponse
 
     @GET("users/{username}/followers")
-    suspend fun getFollowersList(@Path("username") username: String): List<UserDetail>
+    suspend fun getFollowersList(@Path("username") username: String): List<User>
 
     @GET("users/{username}/following")
-    suspend fun getFollowingList(@Path("username") username: String): List<UserDetail>
+    suspend fun getFollowingList(@Path("username") username: String): List<User>
 
 }

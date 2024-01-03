@@ -1,4 +1,4 @@
-package com.gunishjain.speerassignment
+package com.gunishjain.speerassignment.ui.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

@@ -64,7 +64,11 @@ fun UserListScreen(usersState: UiState<List<User>>, onUserClick: (username: Stri
 
     when (usersState) {
         is UiState.Success -> {
-            UserList(usersState.data, onUserClick)
+            if (usersState.data.isEmpty()) {
+                ShowToast("No User Found")
+            } else {
+                UserList(usersState.data, onUserClick)
+            }
         }
 
         is UiState.Loading -> {
@@ -104,14 +108,15 @@ fun UserCard(user: User, onUserClick: (username: String) -> Unit) {
             .padding(12.dp)
     ) {
 
-        Row(modifier = Modifier
-            .fillMaxWidth()
-            .padding(10.dp)
-            .clickable {
-                if (user.username.isNotEmpty()) {
-                    onUserClick(user.username)
-                }
-            },
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp)
+                .clickable {
+                    if (user.username.isNotEmpty()) {
+                        onUserClick(user.username)
+                    }
+                },
             verticalAlignment = Alignment.CenterVertically
         ) {
             AsyncImage(

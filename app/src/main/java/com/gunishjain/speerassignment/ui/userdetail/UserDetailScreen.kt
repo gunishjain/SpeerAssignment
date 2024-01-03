@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -28,6 +29,7 @@ import com.gunishjain.speerassignment.ui.base.ShowProgressBar
 import com.gunishjain.speerassignment.ui.base.ShowToast
 import com.gunishjain.speerassignment.ui.base.UiState
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun UserDetailRoute(
     navController: NavController,
@@ -43,8 +45,11 @@ fun UserDetailRoute(
     val user = viewModel.uiState.collectAsStateWithLifecycle()
 
     Surface {
-        Column(modifier = Modifier.padding(4.dp)) {
-            CoinDetailCard(user.value, navController)
+        Column(
+            modifier = Modifier
+                .padding(4.dp)
+        ) {
+            UserDetailCard(user.value, navController)
         }
     }
 
@@ -52,7 +57,7 @@ fun UserDetailRoute(
 }
 
 @Composable
-fun CoinDetailCard(
+fun UserDetailCard(
     uiState: UiState<UserDetail>,
     navController: NavController
 ) {

@@ -3,7 +3,9 @@ package com.gunishjain.speerassignment.data.api
 import com.gunishjain.speerassignment.data.models.UserDetail
 import retrofit2.http.GET
 import retrofit2.http.Path
+import javax.inject.Singleton
 
+@Singleton
 interface NetworkService {
 
     @GET("users/{username}")

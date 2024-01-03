@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import com.gunishjain.speerassignment.navigation.SetupNavGraph
 import com.gunishjain.speerassignment.ui.search.SearchScreenRoute
 import com.gunishjain.speerassignment.ui.theme.SpeerAssignmentTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,8 +24,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    SearchScreenRoute(onUserClick = {
-                    })
+                    SetupNavGraph()
                 }
             }
         }

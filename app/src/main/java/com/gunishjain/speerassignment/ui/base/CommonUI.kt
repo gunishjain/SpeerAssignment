@@ -100,7 +100,7 @@ fun UserCard(user: User, onUserClick: (username: String) -> Unit) {
         ),
         modifier = Modifier
             .fillMaxWidth()
-            .height(180.dp)
+            .height(140.dp)
             .padding(12.dp)
     ) {
 
@@ -111,8 +111,8 @@ fun UserCard(user: User, onUserClick: (username: String) -> Unit) {
                 if (user.username.isNotEmpty()) {
                     onUserClick(user.username)
                 }
-            }
-            .align(Alignment.CenterHorizontally)
+            },
+            verticalAlignment = Alignment.CenterVertically
         ) {
             AsyncImage(
                 model = user.avatar_url,

@@ -15,7 +15,7 @@ interface NetworkService {
 
     @GET("search/users")
     suspend fun getSearchResult(
-        @Query("q") query: String, @Query("in") inside: String, @Query("q") type: String
+        @Query("q") query: String, @Query("in") inside: String, @Query("type") type: String
     ): UserListResponse
 
     @GET("users/{username}/followers")

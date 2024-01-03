@@ -1,9 +1,11 @@
 package com.gunishjain.speerassignment.data.repository
 
 import com.gunishjain.speerassignment.data.api.NetworkService
+import com.gunishjain.speerassignment.data.models.User
 import com.gunishjain.speerassignment.data.models.UserDetail
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -12,6 +14,14 @@ class GitHubRepository @Inject constructor(private val networkService: NetworkSe
     fun getUserDetail(username: String): Flow<UserDetail> {
         return flow {
             emit(networkService.getUserDetail(username))
+        }
+    }
+
+    fun getSearchResult(query: String): Flow<List<User>> {
+        return flow {
+            emit(networkService.getSearchResult(query, "in", "user"))
+        }.map {
+            it.users
         }
     }
 
